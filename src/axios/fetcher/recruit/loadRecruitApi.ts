@@ -1,4 +1,3 @@
-// import { api } from "@/axios/api";
 import { getBaseUrl } from "@/utils/getBaseUrl";
 import axios from "axios";
 

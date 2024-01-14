@@ -8,6 +8,7 @@ import RecruitPost from "@/models/recruit_post";
 
 /* 
   path: /api/recruit/[id]/likes
+  게시글 좋아요 불러오기
 */
 export const GET = routeWrapperWithError(
   async (req: NextRequest, { params }: { params: { id: string } }) => {

@@ -32,7 +32,6 @@ export default function Mainpage() {
         // 세션 ID를 사용하여 DB에서 사용자 정보를 가져옵니다.
         const response = await fetch(`/api/duplicatename`);
         const dbUser = await response.json();
-        console.log(dbUser);
 
         // changename 필드가 false인 경우 리다이렉트를 수행합니다.
         if (dbUser.changename.changename === false) {
