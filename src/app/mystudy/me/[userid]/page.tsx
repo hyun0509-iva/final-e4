@@ -22,9 +22,10 @@ const Page = async ({ params }: { params: { userid: string } }) => {
   const userId = params.userid;
   const myStudyInfo = await loadMystudyOneApi(userId);
   const myAppliedStudy = await loadMyApplicantApi(userId);
-  console.log({myStudyInfo, myAppliedStudy})
+  console.log({like: myStudyInfo?.myLikedStudy})
   const data = {
     myCreatedStudy: myStudyInfo?.createdMyStudy,
+    myLikdedStudy: myStudyInfo?.myLikedStudy,
     myAppliedStudy,
   };
   return (

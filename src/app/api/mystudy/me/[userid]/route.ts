@@ -17,15 +17,18 @@ export const GET = routeWrapperWithError(
   async (req: NextRequest, { params }: { params: { userid: string } }) => {
     console.log("실행");
     const userId = params.userid;
+    //내가 만든 스터디
     const createdMyStudy = await RecruitPost.find(
       { leader: userId },
       { studyName: 1, leader: 1, start: 1 }
-    ); 
-    //내가 만든 스터디
-    const mySutdyData = { createdMyStudy };
+    );
     //내가 좋아요한 스터디
-    const myLikedStudy = await LikedRecruitPost.find({ userId }); // 좋아요한 스터디
-    console.log({myLike: myLikedStudy})
+    const myLikedStudy = await LikedRecruitPost.find(
+      { userId },
+      { userId: 1, recruitId: 1 }
+    ).populate("recruit", "studyName"); // 좋아요한 스터디
+
+    const mySutdyData = { createdMyStudy, myLikedStudy };
     return NextResponse.json(mySutdyData);
   }
 );

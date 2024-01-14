@@ -6,11 +6,12 @@ import Apply from "./Apply";
 import Button from "@/components/common/Button";
 import { IMystudy } from "@/interfaces/recruit";
 import { IApplicant } from "@/interfaces/applicants";
+import { IIkiedStudy } from "@/interfaces/likedStudy";
 // 불러올 데이타 인터페이스 다 임포트해야댐
 
 /**
  * @name applicants
- * @author 강이경
+ * @author 이동현
  * @desc 마이스터디: 참여 신청한 스터디(모집글), 좋아요한 스터디(모집글), 내가 만든 스터디(모집글), 참여 중인 스터디
  */
 
@@ -19,10 +20,7 @@ interface IProps {
 }
 
 const MyStudy = ({ data }: IProps) => {
-  console.log({data})
-  // console.log(data?.myCreatedStudy);
-  // console.log(data?.myAppliedStudy);
-  data?.myAppliedStudy?.map((info: any )=> console.log({info}))
+  console.log({ data });
   const myAppliedstudy = data?.myAppliedStudy?.map((info: any) => ({
     _id: info?.studyId?._id,
     userId: info?.applicant,
@@ -35,9 +33,10 @@ const MyStudy = ({ data }: IProps) => {
     studyName: info?.studyName,
     start: info?.start,
   }));
+  const myLikdedStudy = data.myLikdedStudy;
 
   const studyRoomInfo = myAppliedstudy?.concat(myCreatedStudy);
-  const notOpeningStudy = studyRoomInfo.every((s: any) => !s.start)
+  const notOpeningStudy = studyRoomInfo.every((s: any) => !s.start);
 
   return (
     <div className={style.bg}>
@@ -60,7 +59,19 @@ const MyStudy = ({ data }: IProps) => {
           {/* 좋아요한 내역 */}
           <h2 className={style.section_title}>좋아요</h2>
           {/* 좋아요한 recruit post 개수 만큼 map */}
-          <p className={style.section_item}>아직 좋아요한 스터디가 없습니다.</p>
+          {myLikdedStudy.length ? (
+            myLikdedStudy.map((liked: IIkiedStudy) => (
+              <Link key={liked._id} href={`/recruit/${liked?.recruit?._id}`}>
+                <span className={style.section_item}>
+                  {liked?.recruit?.studyName}
+                </span>
+              </Link>
+            ))
+          ) : (
+            <p className={style.section_item}>
+              아직 좋아요한 스터디가 없습니다.
+            </p>
+          )}
           {/* <Link href={`/recruit/658310b3bc5fdfc975244aec`}>
             <p className={style.section_item}>해외취업 목표로 JS 기초부터 코딩테스트까지</p>
           </Link> */}
@@ -96,12 +107,11 @@ const MyStudy = ({ data }: IProps) => {
               )
             );
           })}
-          { studyRoomInfo.length && notOpeningStudy &&(
-           <div className={style.section_item}>
-            아직 열린 스터디가 없습니다.
-          </div>
+          {studyRoomInfo.length && notOpeningStudy && (
+            <div className={style.section_item}>
+              아직 열린 스터디가 없습니다.
+            </div>
           )}
-
         </div>
       </div>
     </div>
