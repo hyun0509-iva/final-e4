@@ -27,7 +27,7 @@ export const GET = routeWrapperWithError(
       { userId },
       { userId: 1, recruitId: 1 }
     ).populate("recruit", "studyName"); // 좋아요한 스터디
-
+    console.log({myLikedStudy})
     const mySutdyData = { createdMyStudy, myLikedStudy };
     return NextResponse.json(mySutdyData);
   }

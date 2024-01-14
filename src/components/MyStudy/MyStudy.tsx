@@ -36,7 +36,7 @@ const MyStudy = ({ data }: IProps) => {
   const myLikdedStudy = data.myLikdedStudy;
 
   const studyRoomInfo = myAppliedstudy?.concat(myCreatedStudy);
-  const notOpeningStudy = studyRoomInfo.every((s: any) => !s.start);
+  const notOpeningStudy = studyRoomInfo?.every((s: any) => !s.start);
 
   return (
     <div className={style.bg}>
@@ -59,7 +59,7 @@ const MyStudy = ({ data }: IProps) => {
           {/* 좋아요한 내역 */}
           <h2 className={style.section_title}>좋아요</h2>
           {/* 좋아요한 recruit post 개수 만큼 map */}
-          {myLikdedStudy.length ? (
+          {myLikdedStudy?.length ? (
             myLikdedStudy.map((liked: IIkiedStudy) => (
               <Link key={liked._id} href={`/recruit/${liked?.recruit?._id}`}>
                 <span className={style.section_item}>
@@ -107,7 +107,7 @@ const MyStudy = ({ data }: IProps) => {
               )
             );
           })}
-          {studyRoomInfo.length && notOpeningStudy && (
+          {studyRoomInfo?.length && notOpeningStudy && (
             <div className={style.section_item}>
               아직 열린 스터디가 없습니다.
             </div>
