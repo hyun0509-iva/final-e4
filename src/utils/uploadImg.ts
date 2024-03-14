@@ -1,7 +1,6 @@
 import axios from "axios";
-const CLOUDINARY_NAME = "djildorn9";
-const PRESETS_NAME = "qwer1234";
-
+const CLOUDINARY_NAME = process.env.CLOUDINARY_NAME as string
+const PRESETS_NAME = process.env.PRESETS_NAME as string
 export const uploadImg = async (originFileName: File) => {
   try {
     const formData = new FormData();
