@@ -1,9 +1,9 @@
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { NextResponse, NextRequest } from "next/server";
 import RecruitPost from "@/models/recruit_post";
 import { routeWrapperWithError } from "@/utils/routeWrapperWithError";
 import User from "@/models/user";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import Member from "@/models/member";
 
 /* 모집글 모아보기 */
